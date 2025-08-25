@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class VeiculoRepositoryimp implements VeiculoRepository {
+public class VeiculoRepositoryImp implements VeiculoRepository {
 
     private final JdbcClient jdbcClient;
 
-    public VeiculoRepositoryimp(JdbcClient jdbcClient) {
+    public VeiculoRepositoryImp(JdbcClient jdbcClient) {
         this.jdbcClient = jdbcClient;
     }
 
