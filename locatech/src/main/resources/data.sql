@@ -5,8 +5,8 @@ create table veiculos(
     placa varchar(255),
     ano int,
     cor varchar(20),
-    valor_diararia decimal(10,2)
+    valor_diaria decimal(10,2)
 );
 
-insert into veiculos (marca, modelo, placa, ano, cor, valor_diararia)
+insert into veiculos (marca, modelo, placa, ano, cor, valor_diaria)
 values ('Chevrolet', 'Celta', 'abc1234',2010,'preto', 100.00);

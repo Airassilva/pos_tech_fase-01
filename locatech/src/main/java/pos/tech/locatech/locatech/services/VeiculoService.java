@@ -18,7 +18,7 @@ public class VeiculoService {
 
     public List<Veiculo> findAllVeiculos(int page, int size) {
         int offset = (page - 1) * size;
-        return this.veiculoRepository.findAll(offset, size);
+        return this.veiculoRepository.findAll(size, offset);
     }
 
     public Optional<Veiculo> findVeiculoById(Long id) {
