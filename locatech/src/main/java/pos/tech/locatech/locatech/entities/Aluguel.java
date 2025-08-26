@@ -18,7 +18,7 @@ public class Aluguel {
     private String veiculoModelo;
     private String pessoaCPF;
     private String pessoaNome;
-    private LocalDate dataIncio;
+    private LocalDate dataInicio;
     private LocalDate dataFim;
     private BigDecimal valorTotal;
 }
