@@ -19,12 +19,12 @@ public class AluguelRepositoryImp implements AluguelRepository {
     @Override
     public Optional<Aluguel> findById(Long id) {
         return this.jdbcClient
-                .sql("select a.id, a.pessoa_id, a.veiculo_id, a.data_inicio, a.valor_total," +
-                        "p.nome as pessoa_nome, p.cpf as pessoa_cpf," +
-                        "v.modelo as veiculo_modelo, v.placa as veiculo_placa" +
-                        "from alugueis a " +
-                        "inner join pessoas p on p.id = a.pessoa_id" +
-                        "inner join veiculos v on v.veiculo_id = v.id" +
+                .sql("select  a.id, a.pessoa_id, a.veiculo_id, a.data_inicio, a.data_fim, a.valor_total, " +
+                        "p.nome as pessoa_nome, p.cpf as pessoa_cpf, " +
+                        "v.modelo as veiculo_modelo, v.placa as veiculo_placa " +
+                        "from alugueis a "   +
+                        "inner join pessoas p on a.pessoa_id = p.id " +
+                        "inner join veiculos v on a.veiculo_id = v.id " +
                         "where a.id = :id")
                 .param("id", id)
                 .query(Aluguel.class)
@@ -34,12 +34,12 @@ public class AluguelRepositoryImp implements AluguelRepository {
     @Override
     public List<Aluguel> findAll(int size, int offset) {
         return this.jdbcClient
-                .sql("select a.id, a.pessoa_id, a.veiculo_id, a.data_inicio, a.valor_total," +
-                        "p.nome as pessoa_nome, p.cpf as pessoa_cpf," +
-                        "v.modelo as veiculo_modelo, v.placa as veiculo_placa" +
-                        "from alugueis a " +
-                        "inner join pessoas p on p.id = a.pessoa_id" +
-                        "inner join veiculos v on v.veiculo_id = v.id" +
+                .sql("select  a.id, a.pessoa_id, a.veiculo_id, a.data_inicio, a.data_fim, a.valor_total, " +
+                        "p.nome as pessoa_nome, p.cpf as pessoa_cpf, " +
+                        "v.modelo as veiculo_modelo, v.placa as veiculo_placa " +
+                        "from alugueis a "   +
+                        "inner join pessoas p on a.pessoa_id = p.id " +
+                        "inner join veiculos v on a.veiculo_id = v.id " +
                         "limit :size offset :offset")
                 .param("size", size)
                 .param("offset",offset)
