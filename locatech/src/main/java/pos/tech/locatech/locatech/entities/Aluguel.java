@@ -1,6 +1,7 @@
 package pos.tech.locatech.locatech.entities;
 
 import lombok.*;
+import pos.tech.locatech.locatech.dtos.AluguelRequestDTO;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -21,4 +22,12 @@ public class Aluguel {
     private LocalDate dataInicio;
     private LocalDate dataFim;
     private BigDecimal valorTotal;
+
+    public Aluguel(AluguelRequestDTO aluguelDTO, BigDecimal valor) {
+        this.pessoaId = aluguelDTO.pessoaId();
+        this.veiculoId = aluguelDTO.veiculoId();
+        this.dataInicio = aluguelDTO.dataInicio();
+        this.dataFim = aluguelDTO.dataFim();
+        this.valorTotal = valor;
+    }
 }
