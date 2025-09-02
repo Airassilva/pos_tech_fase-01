@@ -18,4 +18,5 @@ public class Veiculo {
     private int ano;
     private String cor;
     private BigDecimal valorDiaria;
+
 }

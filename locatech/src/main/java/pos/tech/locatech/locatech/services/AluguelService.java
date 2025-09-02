@@ -36,30 +36,51 @@ public class AluguelService {
 
     public void saveAluguel(AluguelRequestDTO DTO) {
         var aluguelEntity = calculaAluguel(DTO);
-        var save =  this.aluguelRepository.save(aluguelEntity);
-        Assert.state(save == 1, "Erro ao salvar Aluguel" + DTO.pessoaId() + DTO.veiculoId());
+        var verifica = verificaAluguel(DTO);
+        var data = verificaData(DTO);
+        if (!verifica) {
+            throw new ResourceNotFoundException("Veículo já alugado!");
+        }
+        if(!data){
+            throw new IllegalArgumentException("Data final do aluguel anterior a data de início");
+        }
+        this.aluguelRepository.save(aluguelEntity);
     }
 
     public void updateAluguel(Aluguel aluguel, Long id) {
         var update = this.aluguelRepository.update(aluguel, id);
         if (update == 0) {
-            throw new RuntimeException("Aluguel não encontrado!");
+            throw new ResourceNotFoundException("Aluguel não encontrado!");
         }
     }
 
     public void deleteAluguel(Long id) {
         var delete  = this.aluguelRepository.delete(id);
         if (delete == 0) {
-            throw new RuntimeException("Aluguel não encontrado para deleção!");
+            throw new ResourceNotFoundException("Aluguel não encontrado para deleção!");
         }
     }
 
     private Aluguel calculaAluguel(AluguelRequestDTO DTO) {
         var veiculo = veiculoRepository.findById(DTO.veiculoId())
-                .orElseThrow(() -> new RuntimeException(("Veículo não encontrado!")));
+                .orElseThrow(() -> new ResourceNotFoundException(("Veículo não encontrado!")));
         var quantidadeDias = BigDecimal.valueOf(DTO.dataFim().getDayOfYear() - DTO.dataInicio().getDayOfYear());
         var valor = veiculo.getValorDiaria().multiply(quantidadeDias);
         return new Aluguel(DTO, valor);
+    }
+
+    private boolean verificaAluguel(AluguelRequestDTO dto) {
+        var aluguel = aluguelRepository.findById(dto.veiculoId())
+                .orElseThrow(() -> new ResourceNotFoundException(("Veículo não encontrado!")));
+        boolean diaEscolhido = dto.dataInicio().isEqual(aluguel.getDataInicio());
+        if(diaEscolhido) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean verificaData(AluguelRequestDTO dto) {
+        return dto.dataFim().isAfter(dto.dataInicio());
     }
     
 }

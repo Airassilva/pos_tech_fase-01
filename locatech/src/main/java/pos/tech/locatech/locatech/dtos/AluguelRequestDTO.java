@@ -9,7 +9,9 @@ public record AluguelRequestDTO(
         Long pessoaId,
         @NotNull(message = "Deve ser selecionado um veículo!")
         Long veiculoId,
+        @NotNull(message = "Deve ser passada a data inicial de aluguel do veículo")
         LocalDate dataInicio,
+        @NotNull(message = "Deve ser passada a data final de aluguel do veículo")
         LocalDate dataFim
     ) {
 }
