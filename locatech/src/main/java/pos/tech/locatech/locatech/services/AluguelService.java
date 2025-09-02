@@ -1,7 +1,6 @@
 package pos.tech.locatech.locatech.services;
 
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
 import pos.tech.locatech.locatech.dtos.AluguelRequestDTO;
 import pos.tech.locatech.locatech.entities.Aluguel;
 import pos.tech.locatech.locatech.repositories.AluguelRepository;
